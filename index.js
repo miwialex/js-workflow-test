@@ -1,4 +1,4 @@
-import { startTaskServer, task } from "@render/sdk/workflows"
+import { startTaskServer, task } from "@renderinc/sdk/workflows"
 
 const square = task(
   { name: "square" },
