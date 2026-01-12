@@ -16,6 +16,15 @@ task(
   }
 )
 
+task(
+  { name: "greet" },
+  (person) => {
+    const message = `${process.env.GREET} ${person}`
+    console.log(message)
+    return message
+  }
+)
+
 startTaskServer()
   .then(() =>{
     console.log("task server started")
