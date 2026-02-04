@@ -25,6 +25,16 @@ task(
   }
 )
 
+task(
+  { name: "passFail" },
+  (status) => {
+    if (status === "fail") {
+      throw new Error("FAILED!!!!");
+    }
+    return "passed"
+  }
+)
+
 startTaskServer()
   .then(() =>{
     console.log("task server started")
