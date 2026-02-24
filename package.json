@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@renderinc/sdk": "0.1.0"
+    "@renderinc/sdk": "0.4.0"
   },
   "author": "",
   "license": "ISC"

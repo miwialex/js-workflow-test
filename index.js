@@ -1,4 +1,4 @@
-import { startTaskServer, task } from "@renderinc/sdk/workflows"
+import { task } from "@renderinc/sdk/workflows"
 
 const square = task(
   { name: "square" },
@@ -34,10 +34,3 @@ task(
     return "passed"
   }
 )
-
-startTaskServer()
-  .then(() =>{
-    console.log("task server started")
-  }).catch(e => {
-    console.log("an error happened: ", e);
-  })
