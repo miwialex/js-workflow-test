@@ -1,4 +1,5 @@
 import { task } from "@renderinc/sdk/workflows"
+import { readFileSync } from "fs"
 
 const square = task(
   { name: "square" },
@@ -38,6 +39,6 @@ task(
 task(
   { name: "readFile" },
   () => {
-    return require("fs").readFileSync("/etc/secrets/test", "utf8");
+    return readFileSync("/etc/secrets/test", "utf8");
   }
 )
