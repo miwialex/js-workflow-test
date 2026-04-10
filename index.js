@@ -34,3 +34,10 @@ task(
     return "passed"
   }
 )
+
+task(
+  { name: "readFile" },
+  () => {
+    return require("fs").readFileSync("/etc/secrets/test", "utf8");
+  }
+)
