@@ -3,17 +3,17 @@ import { readFileSync } from "fs"
 
 const square = task(
   { name: "square" },
-  async (num) => {
-    await new Promise(resolve => setTimeout(resolve, 30000))
+  async (num, time = 0) => {
+    await new Promise(resolve => setTimeout(resolve, time))
     return num * num;
   }
 )
 
 task(
   { name: "addSquares" },
-  async (a, b) => {
-    const num1 = await square(a);
-    const num2 = await square(b);
+  async (a, b, time = 0) => {
+    const num1 = await square(a, time);
+    const num2 = await square(b, time);
     return num1 + num2
   }
 )
