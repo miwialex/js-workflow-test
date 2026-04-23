@@ -3,7 +3,8 @@ import { readFileSync } from "fs"
 
 const square = task(
   { name: "square" },
-  (num) => {
+  async (num) => {
+    await new Promise(resolve => setTimeout(resolve, 30000))
     return num * num;
   }
 )
