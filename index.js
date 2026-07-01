@@ -22,7 +22,7 @@ task(
   { name: "greet" },
   (person) => {
     const message = `${process.env.GREET} ${person}!`
-    console.log(message)
+    console.log('message: ' + message)
     return message
   }
 )
