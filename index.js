@@ -38,7 +38,7 @@ task(
 )
 
 task(
-  { name: "bigObject", plan: "flex" },
+  { name: "bigObject" },
   (count = 200) => {
     const items = []
     for (let i = 0; i < count; i++) {
