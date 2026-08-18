@@ -38,6 +38,21 @@ task(
 )
 
 task(
+  { name: "bigObject", plan: "flex" },
+  (count = 200) => {
+    const items = []
+    for (let i = 0; i < count; i++) {
+      items.push({
+        id: i,
+        name: `item-${i}`,
+        payload: "x".repeat(64),
+      })
+    }
+    return { count, items }
+  }
+)
+
+task(
   { name: "readFile" },
   () => {
     return readFileSync("/etc/secrets/test", "utf8");
