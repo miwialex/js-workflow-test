@@ -10,7 +10,7 @@ const square = task(
 )
 
 task(
-  { name: "addSquares" },
+  { name: "addSquares", plan="4c-8g" },
   async (a, b, time = 0) => {
     const num1 = await square(a, time);
     const num2 = await square(b, time);
@@ -19,7 +19,7 @@ task(
 )
 
 task(
-  { name: "greet" },
+  { name: "greet", plan="pro" },
   (person) => {
     const message = `${process.env.GREET} ${person}!!!`
     console.log('message: ' + message)
