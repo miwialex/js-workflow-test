@@ -47,7 +47,6 @@ task(
         name: `item-${i}`,
         payload: "x".repeat(64),
       })
-      await new Promise(resolve => setTimeout(resolve, 100))
     }
     return { count, items }
   }
