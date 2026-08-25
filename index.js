@@ -48,6 +48,9 @@ task(
         payload: "x".repeat(64),
       })
     }
+    console.log("waiting 10 seconds");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+    console.log("done!")
     return { count, items }
   }
 )
