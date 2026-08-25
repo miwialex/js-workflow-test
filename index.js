@@ -3,7 +3,7 @@ import { readFileSync } from "fs"
 
 const square = task(
   { name: "square" },
-  async (num, time = 0) => {
+  async (_ctx, num, time = 0) => {
     await new Promise(resolve => setTimeout(resolve, time))
     return num * num;
   }
@@ -11,16 +11,16 @@ const square = task(
 
 task(
   { name: "addSquares", plan: "4c-8g" },
-  async (a, b, time = 0) => {
-    const num1 = await square(a, time);
-    const num2 = await square(b, time);
+  async (ctx, a, b, time = 0) => {
+    const num1 = await ctx.run(square, a, time);
+    const num2 = await ctx.run(square, b, time);
     return num1 + num2
   }
 )
 
 task(
   { name: "greet", plan: "pro" },
-  (person) => {
+  (_ctx, person) => {
     const message = `${process.env.GREET} ${person}!!!`
     console.log('message: ' + message)
     return message
@@ -29,7 +29,7 @@ task(
 
 task(
   { name: "passFail" },
-  (status) => {
+  (_ctx, status) => {
     if (status === "fail") {
       throw new Error("FAILED!!!!");
     }
@@ -39,7 +39,7 @@ task(
 
 task(
   { name: "bigObject", plan: "flex" },
-  (count = 200) => {
+  async (_ctx, count = 200) => {
     const items = []
     for (let i = 0; i < count; i++) {
       items.push({
@@ -47,6 +47,7 @@ task(
         name: `item-${i}`,
         payload: "x".repeat(64),
       })
+      await new Promise(resolve => setTimeout(resolve, 100))
     }
     return { count, items }
   }
@@ -54,7 +55,7 @@ task(
 
 task(
   { name: "readFile" },
-  () => {
+  (_ctx) => {
     return readFileSync("/etc/secrets/test", "utf8");
   }
 )
