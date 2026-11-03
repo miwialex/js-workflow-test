@@ -1,4 +1,4 @@
-import { task } from "@renderinc/sdk/workflows"
+import { task, flow } from "@renderinc/sdk/workflows"
 import { readFileSync } from "fs"
 
 const square = task(
@@ -61,3 +61,14 @@ task(
     return readFileSync("/etc/secrets/test", "utf8");
   }
 )
+
+function sq (num) {
+  return num * num;
+}
+
+flow ({ name: "addSquaresFlow" }, async (ctx, a, b) => {
+  const r1 = await ctx.step("squarea", sq, [a]);
+  const r2 = await ctx.step("squareb", sq, b);
+  const sum = await ctx.step("sum", () => r1 + r2);
+  return sum;
+})
