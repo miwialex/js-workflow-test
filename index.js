@@ -68,7 +68,7 @@ function sq (num) {
 
 flow ({ name: "addSquaresFlow" }, async (ctx, a, b) => {
   const r1 = await ctx.step("squarea", sq, [a]);
-  const r2 = await ctx.step("squareb", sq, b);
+  const r2 = await ctx.step("squareb", sq, [b]);
   const sum = await ctx.step("sum", () => r1 + r2);
   return sum;
 })
