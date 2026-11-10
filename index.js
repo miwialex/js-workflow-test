@@ -63,12 +63,31 @@ task(
 )
 
 function sq (num) {
+  console.log("squaring " + num);
   return num * num;
 }
 
 flow ({ name: "addSquaresFlow" }, async (ctx, a, b) => {
+  console.log("starting flow")
   const r1 = await ctx.step("squarea", sq, [a]);
   const r2 = await ctx.step("squareb", sq, [b]);
-  const sum = await ctx.step("sum", () => r1 + r2);
+  const sum = await ctx.step("sum", () => {
+    console.log("calculating sum")
+    return r1 + r2
+  });
+  return sum;
+});
+
+flow ({ name: "factorial" }, async (ctx, num) => {
+  console.log("calculating factorial for " + num);
+  let sum = 1;
+  let start = num;
+  while (start > 0) {
+    await ctx.step("calculate", (current) => {
+      console.log("next step for " + start);
+      sum *= start;
+      start--
+    })
+  }
   return sum;
 })
