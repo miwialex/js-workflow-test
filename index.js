@@ -91,3 +91,21 @@ flow ({ name: "factorial" }, async (ctx, num) => {
   }
   return sum;
 })
+
+flow({ name: "longTime" }, async (ctx) => {
+  console.log("starting long time");
+
+  const step1 = await ctx.step("step 1", () => {
+    console.log("step 1");
+    return 1;
+  })
+
+  const step2 = await ctx.step("step 2", async (val) => {
+    console.log("starting step 2 with " + val);
+    await new Promise(resolve => setTimeout(resolve, 10000));
+    console.log("ending step 2");
+    return 2;
+  }, [1])
+
+  return step1 + step2
+})
