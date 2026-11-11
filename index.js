@@ -107,7 +107,7 @@ flow({ name: "longTime", timeoutSeconds: 20 * 60 }, async (ctx) => {
 
   const step2 = await ctx.step("step 2", async (val) => {
     console.log("starting step 2 with " + val + "; kill the node now");
-    await new Promise((resolve) => setTimeout(resolve, 10 * 60 * 1000));
+    await new Promise((resolve) => setTimeout(resolve, 30000));
     console.log("ending step 2");
     return 2;
   }, [1]);
