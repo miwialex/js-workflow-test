@@ -110,7 +110,7 @@ flow({ name: "longTime", timeoutSeconds: 20 * 60 }, async (ctx) => {
     await new Promise((resolve) => setTimeout(resolve, 30000));
     console.log("ending step 2");
     return 2;
-  }, [1]);
+  }, [1], { retry: { maxRetries: 3 }});
 
   return step1 + step2;
 });
