@@ -103,7 +103,7 @@ flow({ name: "longTime", timeoutSeconds: 20 * 60 }, async (ctx) => {
   const step1 = await ctx.step("step 1", (token) => {
     console.log("step 1 with " + token);
     return 1;
-  }, [PROCESS_TOKEN]);
+  }, [1]);
 
   const step2 = await ctx.step("step 2", async (val) => {
     console.log("starting step 2 with " + val + "; kill the node now");
