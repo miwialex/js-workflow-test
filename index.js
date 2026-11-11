@@ -1,5 +1,6 @@
 import { task, flow } from "@renderinc/sdk/workflows"
 import { readFileSync } from "fs"
+import { randomUUID } from "node:crypto";
 
 const square = task(
   { name: "square" },
@@ -92,20 +93,24 @@ flow ({ name: "factorial" }, async (ctx, num) => {
   return sum;
 })
 
-flow({ name: "longTime" }, async (ctx) => {
-  console.log("starting long time");
+// New in every process, so a replay sees a different value than attempt 0.
+const PROCESS_TOKEN = randomUUID();
 
-  const step1 = await ctx.step("step 1", () => {
-    console.log("step 1");
+flow({ name: "longTime", timeoutSeconds: 20 * 60 }, async (ctx) => {
+  console.log(`starting long time in process ${PROCESS_TOKEN}`);
+
+  // Non-deterministic on purpose: this step's input changes between attempts.
+  const step1 = await ctx.step("step 1", (token) => {
+    console.log("step 1 with " + token);
     return 1;
-  })
+  }, [PROCESS_TOKEN]);
 
   const step2 = await ctx.step("step 2", async (val) => {
-    console.log("starting step 2 with " + val);
-    await new Promise(resolve => setTimeout(resolve, 10000));
+    console.log("starting step 2 with " + val + "; kill the node now");
+    await new Promise((resolve) => setTimeout(resolve, 10 * 60 * 1000));
     console.log("ending step 2");
     return 2;
-  }, [1])
+  }, [1]);
 
-  return step1 + step2
-})
+  return step1 + step2;
+});
